@@ -6,5 +6,10 @@ const path = require('path')
 // https://vitejs.dev/config/
 export default defineConfig({
   base: path.resolve(__dirname, './dist'),
-  plugins: [vue()]
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')  // 让vite识别@符号
+    }
+  }
 })
