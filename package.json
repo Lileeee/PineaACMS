@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "start": "vue-tsc && vite build && electron-forge start",
     "package": "vue-tsc && vite build && electron-forge package",
-    "make": "electron-forge make"
+    "make": "vue-tsc && vite build && electron-forge make"
   },
   "dependencies": {
     "@electron-forge/plugin-fuses": "^7.3.1",
