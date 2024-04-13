@@ -1,38 +1,23 @@
 <template>
-    <Menu v-model:selectedKeys="selectedKeys" mode="inline">
-        <MenuItem key="1">
+    <Menu id="left-tool" v-model:selectedKeys="selectedKeys" mode="inline">
+        <div class="logo">Pinea Article</div>
+        <MenuItem key="publish">
             <pie-chart-outlined />
-            <span>Option 1</span>
+            <span>publish</span>
         </MenuItem>
-        <MenuItem key="2">
+        <MenuItem key="browse">
             <desktop-outlined />
-            <span>Option 2</span>
+            <span>library</span>
         </MenuItem>
-        <SubMenu key="sub1">
-            <template #title>
-                <span>
-                    <user-outlined />
-                    <span>User</span>
-                </span>
-            </template>
-            <MenuItem key="3">Tom</MenuItem>
-            <MenuItem key="4">Bill</MenuItem>
-            <MenuItem key="5">Alex</MenuItem>
-        </SubMenu>
         <SubMenu key="sub2">
             <template #title>
                 <span>
                     <team-outlined />
-                    <span>Team</span>
+                    <span>personal center</span>
                 </span>
             </template>
-            <MenuItem key="6">Team 1</MenuItem>
-            <MenuItem key="8">Team 2</MenuItem>
+            <MenuItem key="6">my articles</MenuItem>
         </SubMenu>
-        <MenuItem key="9">
-            <file-outlined />
-            <span>File</span>
-        </MenuItem>
     </Menu>
 </template>
 
@@ -40,9 +25,7 @@
 import {
     PieChartOutlined,
     DesktopOutlined,
-    UserOutlined,
     TeamOutlined,
-    FileOutlined,
 } from "@ant-design/icons-vue";
 import { Menu, MenuItem, SubMenu } from "ant-design-vue";
 import { ref } from "vue";
@@ -50,7 +33,32 @@ const selectedKeys = ref<string[]>(["1"]);
 </script>
 
 <style scoped lang="less">
-.ant-menu {
-    height: 98%;
+#left-tool {
+    height: 100%;
+    .logo {
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 40px;
+        margin: 15px 0;
+        font-size: 18px;
+        font-weight: 800;
+        border-right: 1px solid transparent;
+        overflow: hidden;
+        word-break: break-all;
+        animation: typing 2s steps(42, end);
+    }
+    /* 打印效果 */
+    @keyframes typing {
+        from {
+            width: 0;
+            color: aliceblue;
+        }
+
+        to {
+            width: 100%;
+            border: none !important;
+        }
+    }
 }
 </style>
