@@ -21,7 +21,7 @@ export default defineStore("useTheme", {
                 return {
                     components: {
                         Layout: {
-                            colorBgHeader: "#f5f5f5",
+                            colorBgHeader: "#fff",
                         },
                     },
                     algorithm: theme.defaultAlgorithm,
@@ -45,4 +45,5 @@ export default defineStore("useTheme", {
             this.mode = this.mode === "light" ? "dark" : "light";
         },
     },
+    persist: true,
 });
