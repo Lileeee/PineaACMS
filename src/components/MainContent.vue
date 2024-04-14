@@ -1,21 +1,33 @@
 <template>
-    <div>
-        <Button @click="useTheme.toggleMode">切换模式</Button>
-        <Select v-model:value="useTheme.mode">
-            <SelectOption value="dark"></SelectOption>
-            <SelectOption value="light"></SelectOption>
-        </Select>
-
-        <!-- <Editor /> -->
+    <div v-for="item in mainlist">
+        <component
+            v-show="useActive.activeLeft === item.id"
+            :is="item.component"
+        ></component>
     </div>
 </template>
 
 <script setup lang="ts">
-import { Select, SelectOption, Button } from "ant-design-vue";
-// import { Editor } from "novel-vue";
-// import "novel-vue/dist/style.css";
+import Library from "@/components/MainContent/Library.vue";
+import MyArticle from "@/components/MainContent/MyArticle.vue";
+import Publish from "@/components/MainContent/Publish.vue";
+
 import useStore from "@/store";
-const { useTheme } = useStore();
+const { useActive } = useStore();
+const mainlist = [
+    {
+        id: "1",
+        component: Publish,
+    },
+    {
+        id: "2",
+        component: Library,
+    },
+    {
+        id: "3",
+        component: MyArticle,
+    },
+];
 </script>
 
 <style lang="less"></style>

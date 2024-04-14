@@ -1,22 +1,27 @@
 <template>
-    <Menu id="left-tool" v-model:selectedKeys="selectedKeys" mode="inline">
+    <Menu
+        id="left-tool"
+        v-model:selectedKeys="selectedKeys"
+        :select="useActive.setActiveLeft(selectedKeys[0])"
+        mode="inline"
+    >
         <div class="logo">Pinea Article</div>
-        <MenuItem key="publish">
+        <MenuItem key="1">
             <pie-chart-outlined />
             <span>publish</span>
         </MenuItem>
-        <MenuItem key="browse">
+        <MenuItem key="2">
             <desktop-outlined />
             <span>library</span>
         </MenuItem>
-        <SubMenu key="sub2">
+        <SubMenu key="sub">
             <template #title>
                 <span>
                     <team-outlined />
                     <span>personal center</span>
                 </span>
             </template>
-            <MenuItem key="6">my articles</MenuItem>
+            <MenuItem key="3">my articles</MenuItem>
         </SubMenu>
     </Menu>
 </template>
@@ -29,6 +34,8 @@ import {
 } from "@ant-design/icons-vue";
 import { Menu, MenuItem, SubMenu } from "ant-design-vue";
 import { ref } from "vue";
+import useStore from "@/store";
+const { useActive } = useStore();
 const selectedKeys = ref<string[]>(["1"]);
 </script>
 
