@@ -1,5 +1,5 @@
 <template>
-    <div v-for="item in mainlist">
+    <div id="main-content" v-for="item in mainlist">
         <component
             v-show="useActive.activeLeft === item.id"
             :is="item.component"

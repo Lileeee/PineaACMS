@@ -3,6 +3,7 @@ import { createPinia } from "pinia";
 import piniaPersist from "pinia-plugin-persistedstate";
 import antd from "ant-design-vue";
 import App from "@/App.vue";
+import "@/api/mock/index.js";
 import "ant-design-vue/dist/reset.css";
 import "./style.less";
 

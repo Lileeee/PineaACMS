@@ -1,5 +1,5 @@
 <template>
-    <div>library</div>
+    <div id="library">library</div>
 </template>
 
 <script setup></script>
