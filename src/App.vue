@@ -1,11 +1,14 @@
 <template>
-    <!-- <Home></Home> -->
-    <Login></Login>
+    <Login v-if="!useActive.isLogin"></Login>
+    <Home v-else></Home>
 </template>
 
 <script setup lang="ts">
-// import Home from "@/view/Home.vue";
+import Home from "@/view/Home.vue";
 import Login from "@/view/Login.vue";
+
+import useStore from "@/store";
+const { useActive } = useStore();
 </script>
 
 <style scoped></style>

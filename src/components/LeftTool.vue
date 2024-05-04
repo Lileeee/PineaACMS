@@ -22,6 +22,7 @@
                 </span>
             </template>
             <MenuItem key="3">my articles</MenuItem>
+            <MenuItem key="4">my infomation</MenuItem>
         </SubMenu>
     </Menu>
 </template>
@@ -36,7 +37,7 @@ import { Menu, MenuItem, SubMenu } from "ant-design-vue";
 import { ref } from "vue";
 import useStore from "@/store";
 const { useActive } = useStore();
-const selectedKeys = ref<string[]>(["1"]);
+const selectedKeys = ref<string[]>([""]);
 </script>
 
 <style scoped lang="less">

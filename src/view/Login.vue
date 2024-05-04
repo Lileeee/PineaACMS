@@ -19,6 +19,7 @@
                         v-model:value="user.password"
                         :bordered="false"
                         placeholder="password"
+                        @keyup.enter="login"
                     />
                     <div>
                         <Button @click="login">login</Button>
@@ -40,6 +41,9 @@ import {
 import { ref } from "vue";
 import { loginAPI } from "@/api/index.ts";
 import { User, MockResult } from "@/types/index"; // 数据类型
+import useStore from "@/store";
+const { useActive } = useStore();
+
 const user = ref<User>({
     username: "",
     password: "",
@@ -60,7 +64,8 @@ const login = async () => {
     // 发请求
     const result: MockResult = (await loginAPI(user.value)).data;
     if (result.code === 200) {
-        // 跳转首页
+        // 设置登录态
+        useActive.setIsLogin(true);
     } else {
         // notification
         notification["error"]({

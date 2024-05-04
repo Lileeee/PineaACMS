@@ -8,9 +8,10 @@
 </template>
 
 <script setup lang="ts">
-import Library from "@/components/MainContent/Library.vue";
-import MyArticle from "@/components/MainContent/MyArticle.vue";
 import Publish from "@/components/MainContent/Publish.vue";
+import Library from "@/components/MainContent/Library.vue";
+import MyArticles from "@/components/MainContent/MyArticles.vue";
+import MyInfomation from "@/components/MainContent/MyInfomation.vue";
 
 import useStore from "@/store";
 const { useActive } = useStore();
@@ -25,7 +26,11 @@ const mainlist = [
     },
     {
         id: "3",
-        component: MyArticle,
+        component: MyArticles,
+    },
+    {
+        id: "4",
+        component: MyInfomation,
     },
 ];
 </script>
