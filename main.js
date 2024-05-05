@@ -13,7 +13,7 @@ function createWindow() {
 
     // and load the index.html of the app.
     // mainWindow.loadFile("dist/index.html");
-    mainWindow.loadURL("http://localhost:5173/");
+    mainWindow.loadURL("http://localhost:5173/"); // 先启动vite开发服务器 再从服务器引入资源代码  -> 代码即时调试效果
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
