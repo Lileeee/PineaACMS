@@ -39,7 +39,7 @@ import {
     notification,
 } from "ant-design-vue";
 import { ref } from "vue";
-import { loginAPI } from "@/api/index.ts";
+import { postLogin } from "@/api/index.ts";
 import { User, MockResult } from "@/types/index"; // 数据类型
 import useStore from "@/store";
 const { useActive } = useStore();
@@ -62,7 +62,7 @@ const login = async () => {
     }
 
     // 发请求
-    const result: MockResult = (await loginAPI(user.value)).data;
+    const result: MockResult = (await postLogin(user.value)).data;
     if (result.code === 200) {
         // 设置登录态
         useActive.setIsLogin(true);
