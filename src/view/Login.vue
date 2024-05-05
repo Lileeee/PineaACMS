@@ -65,7 +65,7 @@ const login = async () => {
     // 发请求
     const result: MockResult = (await postLogin(user.value)).data;
     if (result.code === 200) {
-        // 设置登录态
+        // 记录useId
         useActive.setUserId(result.data.userId);
     } else {
         // notification
