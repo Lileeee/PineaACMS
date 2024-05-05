@@ -7,25 +7,25 @@ interface activeKey {
     /**
      * 用户是否登录态
      */
-    isLogin: boolean;
+    userId: number;
+
     /**
      * 左侧LeftTool选中
      */
     activeLeft: string;
 }
+
 export default defineStore("useActive", {
     state: (): activeKey => ({
         activeLeft: "1",
-        isLogin: false,
+        userId: NaN,
     }),
     actions: {
         setActiveLeft(value: activeKey["activeLeft"]) {
-            console.log(value);
             this.activeLeft = value;
         },
-        setIsLogin(value: activeKey["isLogin"]) {
-            console.log(value);
-            this.isLogin = value;
+        setUserId(value: activeKey["userId"]) {
+            this.userId = value;
         },
     },
     persist: {

@@ -1,5 +1,5 @@
 <template>
-    <Login v-if="!useActive.isLogin"></Login>
+    <Login v-if="!useActive.userId"></Login>
     <Home v-else></Home>
 </template>
 

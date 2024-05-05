@@ -8,20 +8,28 @@ const postLoginMOCK = mockjs.mock(
     "post",
     (value: MockParams) => {
         let data: User = JSON.parse(value.body);
+        let userId: number = NaN;
 
-        // 判断是否有该用户 有-> 判断密码 | 无-> 报错
+        // 判断是否有该用户
         if (users.some((item: User) => item.username === data.username)) {
+            // 判断用户密码是否正确
             if (
-                users.some(
-                    (item: User) =>
+                users.some((item: User) => {
+                    if (
                         item.username === data.username &&
                         item.password === data.password
-                )
+                    ) {
+                        userId = item.id;
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
             ) {
                 return {
                     code: 200,
                     msg: "Success",
-                    data: null,
+                    data: { userId },
                 };
             } else {
                 return {
@@ -39,4 +47,21 @@ const postLoginMOCK = mockjs.mock(
         }
     }
 );
-console.log(postLoginMOCK);
+
+// 获取当前用户
+const getUserInfoMock = mockjs.mock(
+    "/mock/getUserInfo",
+    "get",
+    (value: MockParams) => {
+        let data: number = JSON.parse(value.body);
+        let user: User = users.filter((item: User) => item.id === data)[0];
+
+        // 根据userId查找users数据，返回对应user
+        return {
+            code: 200,
+            msg: "hhh",
+            data: user,
+        };
+    }
+);
+console.log(postLoginMOCK, getUserInfoMock);

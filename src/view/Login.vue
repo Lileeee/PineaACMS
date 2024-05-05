@@ -45,6 +45,7 @@ import useStore from "@/store";
 const { useActive } = useStore();
 
 const user = ref<User>({
+    id: NaN,
     username: "",
     password: "",
 });
@@ -65,7 +66,7 @@ const login = async () => {
     const result: MockResult = (await postLogin(user.value)).data;
     if (result.code === 200) {
         // 设置登录态
-        useActive.setIsLogin(true);
+        useActive.setUserId(result.data.userId);
     } else {
         // notification
         notification["error"]({

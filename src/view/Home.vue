@@ -26,16 +26,20 @@ import LeftTool from "@/components/LeftTool.vue";
 import Header from "@/components/Header.vue";
 import MainContent from "@/components/MainContent.vue";
 import Footer from "@/components/Footer.vue";
+import { getUserInfo } from "@/api/index.ts";
 import useStore from "@/store";
-const { useTheme } = useStore();
+const { useActive, useTheme } = useStore();
 
 const LayoutSider = Layout.Sider;
 const LayoutHeader = Layout.Header;
 const LayoutFooter = Layout.Footer;
 const LayoutContent = Layout.Content;
 
-onMounted(() => {
-    console.log("hhh");
+onMounted(async () => {
+    // 请求用户信息
+    const result = (await getUserInfo(useActive.userId)).data;
+
+    console.log("hhh", result);
 });
 </script>
 

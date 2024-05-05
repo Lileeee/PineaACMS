@@ -15,6 +15,7 @@ export interface MockResult {
 // user类型
 export interface User {
     sudo?: string; // 管理员标识
+    id: number;
     username: string;
     password: string;
 }

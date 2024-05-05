@@ -10,6 +10,11 @@ const postLogin = (value: User) => {
 };
 
 // 获取用户登录信息
-
+const getUserInfo = (value: number) => {
+    return axios("/mock/getUserInfo", {
+        method: "GET",
+        data: value,
+    });
+};
 // 对外暴露接口
-export { postLogin };
+export { postLogin, getUserInfo };

@@ -10,7 +10,7 @@ import { Button } from "ant-design-vue";
 import useStore from "@/store";
 const { useActive } = useStore();
 const logOut = () => {
-    useActive.setIsLogin(false);
+    useActive.setUserId(NaN);
 };
 </script>
 
