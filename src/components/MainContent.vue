@@ -12,6 +12,8 @@ import Publish from "@/components/MainContent/Publish.vue";
 import Library from "@/components/MainContent/Library.vue";
 import MyArticles from "@/components/MainContent/MyArticles.vue";
 import MyInfomation from "@/components/MainContent/MyInfomation.vue";
+import ArticleMane from "@/components/MainContent/ArticleMana.vue";
+import UserMana from "@/components/MainContent/UserMana.vue";
 
 import useStore from "@/store";
 const { useActive } = useStore();
@@ -31,6 +33,14 @@ const mainlist = [
     {
         id: "4",
         component: MyInfomation,
+    },
+    {
+        id: "5",
+        component: ArticleMane,
+    },
+    {
+        id: "6",
+        component: UserMana,
     },
 ];
 </script>
