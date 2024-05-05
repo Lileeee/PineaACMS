@@ -16,6 +16,7 @@
     "axios": "^1.6.8",
     "electron-squirrel-startup": "^1.0.0",
     "less": "^4.2.0",
+    "mitt": "^3.0.1",
     "mockjs": "^1.1.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
