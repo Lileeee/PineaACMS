@@ -22,7 +22,12 @@
                         @keyup.enter="login"
                     />
                     <div>
-                        <Button @click="login">login</Button>
+                        <div style="display: inline-block; margin-right: 10px">
+                            <Button @click="login">login</Button>
+                        </div>
+                        <div style="display: inline-block">
+                            <Button @click="login">register</Button>
+                        </div>
                     </div>
                 </div>
             </div>
