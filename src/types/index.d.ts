@@ -24,6 +24,8 @@ export interface User {
 export interface Article {
     id: number;
     authorId: number;
+    title: string;
+    description: string;
     content: string;
     status: number; // 文章状态 0未审核 1通过 2打回
     hot: boolean;

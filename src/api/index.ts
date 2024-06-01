@@ -18,7 +18,12 @@ const getUserInfo = (value: number) => {
 };
 
 // 用户发布文章
-const postArti = (value: { authorId: number; content: string }) => {
+const postArti = (value: {
+    authorId: number;
+    title: string;
+    description: string;
+    content: string;
+}) => {
     return axios("/mock/postArti", {
         method: "POST",
         data: value,

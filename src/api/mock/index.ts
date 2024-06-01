@@ -76,9 +76,12 @@ const postArtiMock = mockjs.mock(
     (value: MockParams) => {
         // 1. 准备文章表数据：生成文章id，接收作者id+文章内容
         let ArtID: number = articles.length + 1;
-        let data: { authorId: number; content: string } = JSON.parse(
-            value.body
-        );
+        let data: {
+            authorId: number;
+            title: string;
+            description: string;
+            content: string;
+        } = JSON.parse(value.body);
         // 1. 准备用户文章表数据
         let isNew: boolean = true;
         let URID: number = user_artis.length + 1;
@@ -101,6 +104,8 @@ const postArtiMock = mockjs.mock(
             let article: Article = {
                 id: ArtID,
                 authorId: data.authorId,
+                title: data.title,
+                description: data.description,
                 content: data.content,
                 status: 0,
                 hot: false,
