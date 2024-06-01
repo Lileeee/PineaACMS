@@ -10,10 +10,14 @@
 <script setup lang="ts">
 import Publish from "@/components/MainContent/Publish.vue";
 import Library from "@/components/MainContent/Library.vue";
-import MyArticles from "@/components/MainContent/MyArticles.vue";
+import PubArticles from "@/components/MainContent/PubArticles.vue";
+import LikeArticles from "@/components/MainContent/LikeArticles.vue";
+import MarkArticles from "@/components/MainContent/MarkArticles.vue";
+import BackArticles from "@/components/MainContent/BackArticles.vue";
 import MyInfomation from "@/components/MainContent/MyInfomation.vue";
-import ArticleMane from "@/components/MainContent/ArticleMana.vue";
+import ArticleMana from "@/components/MainContent/ArticleMana.vue";
 import UserMana from "@/components/MainContent/UserMana.vue";
+import SysNotifi from "@/components/MainContent/SysNotifi.vue";
 
 import useStore from "@/store";
 const { useActive } = useStore();
@@ -28,19 +32,35 @@ const mainlist = [
     },
     {
         id: "3",
-        component: MyArticles,
+        component: PubArticles,
     },
     {
         id: "4",
-        component: MyInfomation,
+        component: LikeArticles,
     },
     {
         id: "5",
-        component: ArticleMane,
+        component: MarkArticles,
     },
     {
         id: "6",
+        component: BackArticles,
+    },
+    {
+        id: "7",
+        component: MyInfomation,
+    },
+    {
+        id: "8",
+        component: ArticleMana,
+    },
+    {
+        id: "9",
         component: UserMana,
+    },
+    {
+        id: "10",
+        component: SysNotifi,
     },
 ];
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div id="my-articles">my articles</div>
+    <div id="back-articles">back articles</div>
 </template>
 
 <script setup></script>

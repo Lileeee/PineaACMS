@@ -14,6 +14,18 @@
             <desktop-outlined />
             <span>library</span>
         </MenuItem>
+        <SubMenu key="sub0">
+            <template #title>
+                <span>
+                    <team-outlined />
+                    <span>My Article</span>
+                </span>
+            </template>
+            <MenuItem key="3">published articles</MenuItem>
+            <MenuItem key="4">like articles</MenuItem>
+            <MenuItem key="5">mark articles</MenuItem>
+            <MenuItem key="6">back articles</MenuItem>
+        </SubMenu>
         <SubMenu key="sub1">
             <template #title>
                 <span>
@@ -21,8 +33,7 @@
                     <span>personal center</span>
                 </span>
             </template>
-            <MenuItem key="3">my articles</MenuItem>
-            <MenuItem key="4">my infomation</MenuItem>
+            <MenuItem key="7">my infomation</MenuItem>
         </SubMenu>
         <SubMenu key="sub2" v-if="useUser.sudo">
             <template #title>
@@ -31,8 +42,9 @@
                     <span>System Control</span>
                 </span>
             </template>
-            <MenuItem key="5">Article Management</MenuItem>
-            <MenuItem key="6">User Management</MenuItem>
+            <MenuItem key="8">Article Management</MenuItem>
+            <MenuItem key="9">User Management</MenuItem>
+            <MenuItem key="10">System Notification</MenuItem>
         </SubMenu>
     </Menu>
 </template>
