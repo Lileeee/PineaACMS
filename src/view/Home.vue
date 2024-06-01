@@ -5,7 +5,7 @@
                 <LeftTool></LeftTool>
             </LayoutSider>
             <Layout>
-                <LayoutHeader>
+                <LayoutHeader class="header">
                     <Header></Header>
                 </LayoutHeader>
                 <LayoutContent class="content">
@@ -53,6 +53,10 @@ onMounted(async () => {
 
     .sider {
         height: 100%;
+    }
+
+    .header {
+        margin-bottom: 10px;
     }
 }
 </style>

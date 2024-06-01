@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@electron-forge/plugin-fuses": "^7.3.1",
+    "@wangeditor/editor-for-vue": "^5.1.12",
     "ant-design-vue": "^4.1.2",
     "axios": "^1.6.8",
     "electron-squirrel-startup": "^1.0.0",
