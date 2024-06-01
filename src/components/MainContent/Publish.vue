@@ -1,5 +1,62 @@
 <template>
-    <div id="publish">publish</div>
+    <div id="publish">
+        <div id="editor">
+            <Toolbar
+                style="border-bottom: 1px solid #ccc"
+                :editor="editorRef"
+                :defaultConfig="toolbarConfig"
+                :mode="mode"
+            />
+            <Editor
+                style="height: 500px; overflow-y: hidden"
+                v-model="valueHtml"
+                :defaultConfig="editorConfig"
+                :mode="mode"
+                @onCreated="handleCreated"
+            />
+        </div>
+        <Button class="publish" @click="publish">publish</Button>
+    </div>
 </template>
 
-<script setup></script>
+<script setup>
+import "@wangeditor/editor/dist/css/style.css"; // 引入 css
+import { onBeforeUnmount, ref, shallowRef, onMounted } from "vue";
+import { Button } from "ant-design-vue";
+import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
+import { postArti } from "@/api/index";
+import useStore from "@/store";
+const { useUser } = useStore();
+
+const mode = "default";
+const editorRef = shallowRef();
+const valueHtml = ref("<p>hello</p>");
+const toolbarConfig = {};
+const editorConfig = { placeholder: "请输入内容..." };
+
+const handleCreated = (editor) => {
+    editorRef.value = editor;
+};
+const publish = async () => {
+    // 插入到文章表中
+    await postArti({
+        authorId: useUser.id,
+        content: valueHtml.value,
+    });
+
+    // 插入到用户文章表中
+    console.log(useUser.id, valueHtml.value, result);
+};
+
+onBeforeUnmount(() => {
+    const editor = editorRef.value;
+    if (editor == null) return;
+    editor.destroy();
+});
+</script>
+
+<style scoped lang="less">
+#publish {
+    height: 100%;
+}
+</style>

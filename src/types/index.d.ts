@@ -19,3 +19,22 @@ export interface User {
     username: string;
     password: string;
 }
+
+// article类型
+export interface Article {
+    id: number;
+    authorId: number;
+    content: string;
+    status: number; // 文章状态 0未审核 1通过 2打回
+    hot: boolean;
+    visible: boolean;
+    comments: number;
+    likes: number;
+    marks: number;
+}
+
+export interface User_Arti {
+    id: number;
+    authorId: number;
+    articleIds: number[];
+}

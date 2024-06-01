@@ -16,5 +16,14 @@ const getUserInfo = (value: number) => {
         data: value,
     });
 };
+
+// 用户发布文章
+const postArti = (value: { authorId: number; content: string }) => {
+    return axios("/mock/postArti", {
+        method: "POST",
+        data: value,
+    });
+};
+
 // 对外暴露接口
-export { postLogin, getUserInfo };
+export { postLogin, getUserInfo, postArti };

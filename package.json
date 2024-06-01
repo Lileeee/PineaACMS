@@ -16,6 +16,7 @@
     "ant-design-vue": "^4.1.2",
     "axios": "^1.6.8",
     "electron-squirrel-startup": "^1.0.0",
+    "fs": "^0.0.1-security",
     "less": "^4.2.0",
     "mitt": "^3.0.1",
     "mockjs": "^1.1.0",

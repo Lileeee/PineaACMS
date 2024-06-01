@@ -1,6 +1,5 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
-
 function createWindow() {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
@@ -8,6 +7,10 @@ function createWindow() {
         height: 600,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
+            // 是否启用Node integration
+            nodeIntegration: true, // Electron 5.0.0 版本之后它将被默认false
+            // 是否在独立 JavaScript 环境中运行 Electron API和指定的preload 脚本.默认为 true
+            contextIsolation: false, // Electron 12 版本之后它将被默认true
         },
     });
 

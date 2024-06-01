@@ -1,6 +1,10 @@
+const fs = require("fs");
 import mockjs from "mockjs";
-import users from "@/api/mock/modules/users.json"; // 数据
-import { User, MockParams } from "@/types/index"; // 数据类型
+import users from "@/api/mock/modules/users.json";
+import articles from "@/api/mock/modules/articles.json";
+import user_artis from "@/api/mock/modules/user_arti.json";
+
+import { User, MockParams, Article } from "@/types/index"; // 数据类型
 
 // 用户登录
 const postLoginMOCK = mockjs.mock(
@@ -64,4 +68,75 @@ const getUserInfoMock = mockjs.mock(
         };
     }
 );
-console.log(postLoginMOCK, getUserInfoMock);
+
+// 用户发布文章
+const postArtiMock = mockjs.mock(
+    "/mock/postArti",
+    "post",
+    (value: MockParams) => {
+        // 1. 准备文章表数据：生成文章id，接收作者id+文章内容
+        let ArtID: number = articles.length + 1;
+        let data: { authorId: number; content: string } = JSON.parse(
+            value.body
+        );
+        // 1. 准备用户文章表数据
+        let isNew: boolean = true;
+        let URID: number = user_artis.length + 1;
+        for (let item of user_artis) {
+            if (item.authorId === data.authorId) {
+                isNew = false;
+                item.articleIds.push(ArtID);
+            }
+        }
+        if (isNew) {
+            user_artis.push({
+                id: URID,
+                authorId: data.authorId,
+                articleIds: [ArtID],
+            });
+        }
+
+        // 2. 写入数据
+        if (data.content) {
+            let article: Article = {
+                id: ArtID,
+                authorId: data.authorId,
+                content: data.content,
+                status: 0,
+                hot: false,
+                visible: false,
+                comments: 0,
+                likes: 0,
+                marks: 0,
+            };
+            articles.push(article);
+            // 文章表
+            fs.writeFile(
+                "src/api/mock/modules/articles.json",
+                JSON.stringify(articles),
+                (err: any) => {
+                    if (err) {
+                        throw err;
+                    }
+                }
+            );
+            // 用户文章表
+            fs.writeFile(
+                "src/api/mock/modules/user_arti.json",
+                JSON.stringify(user_artis),
+                (err: any) => {
+                    if (err) {
+                        throw err;
+                    }
+                }
+            );
+            return {
+                code: 200,
+                msg: "post success",
+                data: null,
+            };
+        }
+    }
+);
+
+export { postLoginMOCK, getUserInfoMock, postArtiMock };
