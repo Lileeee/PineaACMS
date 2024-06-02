@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = window.require("fs");
 import mockjs from "mockjs";
 import users from "@/api/mock/modules/users.json";
 import articles from "@/api/mock/modules/articles.json";
