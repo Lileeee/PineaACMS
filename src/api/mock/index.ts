@@ -63,7 +63,7 @@ const getUserInfoMock = mockjs.mock(
         // 根据userId查找users数据，返回对应user
         return {
             code: 200,
-            msg: "hhh",
+            msg: "get all user success",
             data: user,
         };
     }
@@ -144,4 +144,14 @@ const postArtiMock = mockjs.mock(
     }
 );
 
-export { postLoginMOCK, getUserInfoMock, postArtiMock };
+// 读取全部文章
+const getArtiMock = mockjs.mock("/mock/getArti", "get", () => {
+    // 根据userId查找users数据，返回对应user
+    return {
+        code: 200,
+        msg: "get all articles success",
+        data: articles,
+    };
+});
+
+export { postLoginMOCK, getUserInfoMock, postArtiMock, getArtiMock };

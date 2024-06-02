@@ -18,7 +18,7 @@
                 placeholder="description"
             />
             <Editor
-                style="height: 500px; overflow-y: hidden"
+                style="height: 480px; overflow-y: hidden"
                 v-model="valueHtml"
                 :defaultConfig="editorConfig"
                 :mode="mode"
@@ -70,5 +70,8 @@ onBeforeUnmount(() => {
 <style scoped lang="less">
 #publish {
     height: 100%;
+    .publish {
+        margin-top: 20px;
+    }
 }
 </style>

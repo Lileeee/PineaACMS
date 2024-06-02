@@ -30,5 +30,12 @@ const postArti = (value: {
     });
 };
 
+// 读取全部文章
+const getArti = () => {
+    return axios("/mock/getArti", {
+        method: "GET",
+    });
+};
+
 // 对外暴露接口
-export { postLogin, getUserInfo, postArti };
+export { postLogin, getUserInfo, postArti, getArti };

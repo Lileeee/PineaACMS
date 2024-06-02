@@ -1,10 +1,12 @@
 <template>
     <div id="footer">
-        <Button @click="useTheme.toggleMode">切换模式</Button>
-        <Select v-model:value="useTheme.mode">
-            <SelectOption value="dark"></SelectOption>
-            <SelectOption value="light"></SelectOption>
-        </Select>
+        <div style="float: right">
+            <Button @click="useTheme.toggleMode">切换模式</Button>
+            <Select v-model:value="useTheme.mode">
+                <SelectOption value="dark"></SelectOption>
+                <SelectOption value="light"></SelectOption>
+            </Select>
+        </div>
     </div>
 </template>
 
