@@ -71,7 +71,10 @@ onBeforeUnmount(() => {
 #publish {
     height: 100%;
     .publish {
+        float: right;
         margin-top: 20px;
+        margin-right: 40px;
+        padding: 0 30px;
     }
 }
 </style>

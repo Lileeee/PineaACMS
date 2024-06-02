@@ -1,6 +1,6 @@
 <template>
     <div id="footer">
-        <div style="float: right">
+        <div style="float: left">
             <Button @click="useTheme.toggleMode">切换模式</Button>
             <Select v-model:value="useTheme.mode">
                 <SelectOption value="dark"></SelectOption>
