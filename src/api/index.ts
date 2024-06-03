@@ -37,5 +37,21 @@ const getArti = () => {
     });
 };
 
+// 点赞文章
+const postLike = (value: { userId: number; articleId: number }) => {
+    return axios("/mock/postLike", {
+        method: "post",
+        data: value,
+    });
+};
+
+// 读取用户点赞表
+const getLike = (value: number) => {
+    return axios("/mock/getLike", {
+        method: "GET",
+        data: value,
+    });
+};
+
 // 对外暴露接口
-export { postLogin, getUserInfo, postArti, getArti };
+export { postLogin, getUserInfo, postArti, getArti, postLike, getLike };

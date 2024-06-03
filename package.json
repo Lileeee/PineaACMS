@@ -11,6 +11,7 @@
     "make": "vue-tsc && vite build && electron-forge make"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.7",
     "@electron-forge/plugin-fuses": "^7.3.1",
     "@wangeditor/editor-for-vue": "^5.1.12",
     "ant-design-vue": "^4.1.2",

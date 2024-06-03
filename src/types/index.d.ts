@@ -35,8 +35,37 @@ export interface Article {
     marks: number;
 }
 
+// comments类型
+export interface Comment {
+    id: number;
+    userId: number;
+    comment: string;
+}
+
+// user article发布关联表
 export interface User_Arti {
     id: number;
     authorId: number;
     articleIds: number[];
+}
+
+//user article点赞关联表
+export interface Arti_Like {
+    id: number;
+    userId: number;
+    articleIds: number[];
+}
+
+//user article收藏关联表
+export interface Arti_Mark {
+    id: number;
+    userId: number;
+    articleIds: number[];
+}
+
+//article comment评论关联表
+export interface Arti_Com {
+    id: number;
+    articleId: number;
+    commentIds: number[];
 }

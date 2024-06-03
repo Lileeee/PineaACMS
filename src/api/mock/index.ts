@@ -3,8 +3,18 @@ import mockjs from "mockjs";
 import users from "@/api/mock/modules/users.json";
 import articles from "@/api/mock/modules/articles.json";
 import user_artis from "@/api/mock/modules/user_arti.json";
+import arti_likes from "@/api/mock/modules/arti_like.json";
+// import arti_marks from "@/api/mock/modules/arti_mark.json";
+// import arti_coms from "@/api/mock/modules/arti_com.json";
 
-import { User, MockParams, Article } from "@/types/index"; // 数据类型
+import {
+    User,
+    MockParams,
+    Article,
+    // Arti_Com,
+    Arti_Like,
+    // Arti_Mark,
+} from "@/types/index"; // 数据类型
 
 // 用户登录
 const postLoginMOCK = mockjs.mock(
@@ -154,4 +164,101 @@ const getArtiMock = mockjs.mock("/mock/getArti", "get", () => {
     };
 });
 
-export { postLoginMOCK, getUserInfoMock, postArtiMock, getArtiMock };
+// 点赞文章
+// 逻辑：查找用户点赞表数据，根据用户是否点赞，更改两表点赞量+1/-1
+const postLikeMock = mockjs.mock(
+    "/mock/postLike",
+    "post",
+    (value: MockParams) => {
+        let data: { userId: number; articleId: number } = JSON.parse(
+            value.body
+        );
+        console.log("点赞解析请求", data);
+
+        // 返回用户点赞表对应行数据
+        const arti_like_one = arti_likes.find((item: Arti_Like) => {
+            if (item.userId === data.userId) {
+                return true;
+            }
+        });
+        const article = articles.find((item: Article) => {
+            if (item.id === data.articleId) {
+                return true;
+            }
+        });
+        if (article) {
+            if (arti_like_one) {
+                // 如果有该用户点赞信息
+                let index = arti_like_one.articleIds.indexOf(data.articleId);
+                if (index !== -1) {
+                    arti_like_one.articleIds.splice(index, 1);
+                    article.likes = article.likes === 0 ? 0 : article.likes - 1;
+                } else {
+                    // 点赞文章列表没有该articleId
+                    arti_like_one.articleIds.push(data.articleId);
+                    article.likes++;
+                }
+            } else {
+                // 如果没有该用户点赞信息 增加
+                arti_likes.push({
+                    id: arti_likes.length,
+                    userId: data.userId,
+                    articleIds: [data.articleId],
+                });
+                article.likes++;
+            }
+        }
+
+        fs.writeFile(
+            "src/api/mock/modules/arti_like.json",
+            JSON.stringify(arti_likes),
+            (err: any) => {
+                if (err) {
+                    throw err;
+                }
+            }
+        );
+        fs.writeFile(
+            "src/api/mock/modules/articles.json",
+            JSON.stringify(articles),
+            (err: any) => {
+                if (err) {
+                    throw err;
+                }
+            }
+        );
+        console.log(arti_like_one, article);
+
+        return {
+            code: 200,
+            msg: "like success",
+            data: arti_like_one,
+        };
+    }
+);
+
+// 读取文章点赞表
+const getLikeMock = mockjs.mock("/mock/getLike", "get", (value: MockParams) => {
+    const arti_like_one = arti_likes.find((item: Arti_Like) => {
+        let data = JSON.parse(value.body);
+        if (item.userId === data) {
+            return true;
+        }
+    });
+    if (arti_like_one) {
+        return {
+            code: 200,
+            msg: "get all articles success",
+            data: arti_like_one,
+        };
+    }
+});
+
+export {
+    postLoginMOCK,
+    getUserInfoMock,
+    postArtiMock,
+    getArtiMock,
+    postLikeMock,
+    getLikeMock,
+};
