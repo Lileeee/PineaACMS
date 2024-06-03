@@ -11,4 +11,9 @@ export default defineConfig({
             "@": path.resolve(__dirname, "./src"), // 让vite识别@符号
         },
     },
+    server: {
+        watch: {
+            ignored: [path.resolve(__dirname, "./src/api/mock/modules/*")], // vite热更新忽视文件
+        },
+    },
 });
