@@ -1,1 +1,8 @@
-[{"id":1,"authorId":1,"articleIds":[1,4,7,11,12,15,16,17]},{"id":2,"authorId":3,"articleIds":[2,3]},{"id":3,"authorId":5,"articleIds":[5]},{"id":4,"authorId":4,"articleIds":[6]},{"id":5,"authorId":2,"articleIds":[8,13,14]},{"id":6,"authorId":11,"articleIds":[9,10]}]
+[
+    { "id": 1, "authorId": 1, "articleIds": [1, 4, 7, 11, 12, 15, 16, 17] },
+    { "id": 2, "authorId": 3, "articleIds": [2, 3] },
+    { "id": 3, "authorId": 5, "articleIds": [5] },
+    { "id": 4, "authorId": 4, "articleIds": [6] },
+    { "id": 5, "authorId": 2, "articleIds": [8, 13, 14] },
+    { "id": 6, "authorId": 11, "articleIds": [9, 10] }
+]
