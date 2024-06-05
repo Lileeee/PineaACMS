@@ -56,8 +56,6 @@ const publish = async () => {
         description: description.value,
         content: valueHtml.value,
     });
-
-    console.log(useUser.id, valueHtml.value, result);
 };
 
 onBeforeUnmount(() => {
