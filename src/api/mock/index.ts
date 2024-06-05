@@ -173,7 +173,6 @@ const postLikeMock = mockjs.mock(
         let data: { userId: number; articleId: number } = JSON.parse(
             value.body
         );
-        console.log("点赞解析请求", data);
 
         // 返回用户点赞表对应行数据
         const arti_like_one = arti_likes.find((item: Arti_Like) => {
@@ -181,6 +180,7 @@ const postLikeMock = mockjs.mock(
                 return true;
             }
         });
+        // 返回被点赞文章数据
         const article = articles.find((item: Article) => {
             if (item.id === data.articleId) {
                 return true;
@@ -201,7 +201,7 @@ const postLikeMock = mockjs.mock(
             } else {
                 // 如果没有该用户点赞信息 增加
                 arti_likes.push({
-                    id: arti_likes.length,
+                    id: arti_likes.length + 1,
                     userId: data.userId,
                     articleIds: [data.articleId],
                 });
@@ -227,7 +227,6 @@ const postLikeMock = mockjs.mock(
                 }
             }
         );
-        console.log(arti_like_one, article);
 
         return {
             code: 200,
@@ -239,17 +238,41 @@ const postLikeMock = mockjs.mock(
 
 // 读取文章点赞表
 const getLikeMock = mockjs.mock("/mock/getLike", "get", (value: MockParams) => {
+    let data = JSON.parse(value.body);
+    // 寻找该用户点赞文章列表
     const arti_like_one = arti_likes.find((item: Arti_Like) => {
-        let data = JSON.parse(value.body);
         if (item.userId === data) {
             return true;
         }
     });
     if (arti_like_one) {
+        // 如果有数据
         return {
             code: 200,
-            msg: "get all articles success",
+            msg: "get all likesinfo success",
             data: arti_like_one,
+        };
+    } else {
+        // 如果没数据，创建数据
+        const new_arti_like_one = {
+            id: arti_likes.length + 1,
+            userId: data,
+            articleIds: [],
+        };
+        arti_likes.push(new_arti_like_one);
+        fs.writeFile(
+            "src/api/mock/modules/arti_like.json",
+            JSON.stringify(arti_likes),
+            (err: any) => {
+                if (err) {
+                    throw err;
+                }
+            }
+        );
+        return {
+            code: 200,
+            msg: "get all likesinfo success",
+            data: new_arti_like_one,
         };
     }
 });

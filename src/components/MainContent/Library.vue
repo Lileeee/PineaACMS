@@ -21,7 +21,7 @@
                         </span>
                         <span>
                             <component
-                                @click="like(userLike.id, item.id)"
+                                @click="like(userLike.userId, item.id)"
                                 :is="
                                     userLike.articleIds.includes(item.id)
                                         ? $icons['HeartFilled']
@@ -106,7 +106,6 @@ const like = async (userId: number, articleId: number) => {
     if (result.code === 200) {
         listData.value = (await getArti()).data.data; // 新列表数据 -> 显示文章点赞量
         userLike.value = result.data; // 用户点赞列表数据 -> 显示该文章是否被该用户点赞
-        console.log(userLike.value);
     }
 };
 
@@ -119,15 +118,14 @@ const comment = () => {
 };
 
 onMounted(async () => {
-    console.log("onMounted");
     const resultArti = (await getArti()).data;
-    const resultLike = (await getLike(useUser.id)).data;
+    console.log("Library加载 用户数据", useUser.user, useUser.id);
+    const resultLike = (await getLike(useUser.user.id)).data;
     if (resultArti.code === 200) {
         listData.value = resultArti.data;
     }
     if (resultLike.code === 200) {
         userLike.value = resultLike.data;
-        console.log(userLike.value);
     }
 });
 </script>
