@@ -44,11 +44,10 @@ import {
     notification,
 } from "ant-design-vue";
 import { ref } from "vue";
-import { postLogin } from "@/api/index.ts";
+import { postLogin, getUserInfo } from "@/api/index.ts";
 import { User, MockResult } from "@/types/index"; // 数据类型
 import useStore from "@/store";
-const { useActive } = useStore();
-
+const { useActive, useUser } = useStore();
 const user = ref<User>({
     id: NaN,
     username: "",
@@ -68,19 +67,26 @@ const login = async () => {
     }
 
     // 发请求
-    const result: MockResult = (await postLogin(user.value)).data;
-    if (result.code === 200) {
+    const resultLogin: MockResult = (await postLogin(user.value)).data;
+    if (resultLogin.code === 200) {
         // 记录useId
-        useActive.setUserId(result.data.userId);
+        useActive.setUserId(resultLogin.data.userId);
+
+        // 请求用户信息
+        const resultGetUser = (await getUserInfo(useActive.userId)).data;
+
+        // 存储用户信息
+        if (resultGetUser.code === 200) {
+            useUser.setUser(resultGetUser.data);
+        }
+        console.log("存储用户", useUser.user, useUser.id);
     } else {
-        // notification
         notification["error"]({
             message: "error",
-            description: result.msg,
+            description: resultLogin.msg,
             placement: "bottomRight",
         });
     }
-    console.log("result", result);
 };
 </script>
 
