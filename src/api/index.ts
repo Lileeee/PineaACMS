@@ -69,6 +69,14 @@ const getMark = (value: number) => {
     });
 };
 
+// 读取用户文章表
+const getUserArti = (value: number) => {
+    return axios("/mock/getUserArti", {
+        method: "GET",
+        data: value,
+    });
+};
+
 // 对外暴露接口
 export {
     postLogin,
@@ -79,4 +87,5 @@ export {
     getLike,
     postMark,
     getMark,
+    getUserArti,
 };

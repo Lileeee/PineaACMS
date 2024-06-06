@@ -9,8 +9,8 @@
         "hot": false,
         "visible": true,
         "comments": 1,
-        "likes": 3,
-        "marks": 3
+        "likes": 2,
+        "marks": 2
     },
     {
         "id": 2,
@@ -48,8 +48,8 @@
         "hot": false,
         "visible": true,
         "comments": 0,
-        "likes": 1,
-        "marks": 1
+        "likes": 0,
+        "marks": 0
     },
     {
         "id": 5,
@@ -61,8 +61,8 @@
         "hot": false,
         "visible": true,
         "comments": 0,
-        "likes": 0,
-        "marks": 0
+        "likes": 1,
+        "marks": 1
     },
     {
         "id": 6,

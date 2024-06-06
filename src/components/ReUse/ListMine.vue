@@ -12,9 +12,9 @@
                 <template #actions>
                     <span>
                         <component
-                            @click="mark(userMark.userId, item.id)"
+                            @click="mark(useUser.id, item.id)"
                             :is="
-                                userMark.articleIds.includes(item.id)
+                                userMark?.articleIds.includes(item.id)
                                     ? $icons['StarFilled']
                                     : $icons['StarTwoTone']
                             "
@@ -25,9 +25,9 @@
                     </span>
                     <span>
                         <component
-                            @click="like(userLike.userId, item.id)"
+                            @click="like(useUser.id, item.id)"
                             :is="
-                                userLike.articleIds.includes(item.id)
+                                userLike?.articleIds.includes(item.id)
                                     ? $icons['HeartFilled']
                                     : $icons['HeartTwoTone']
                             "
@@ -70,8 +70,15 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "vue";
 import { List, ListItem, ListItemMeta } from "ant-design-vue";
-import { Arti_Like, Arti_Mark, Article } from "@/types/index";
-import { getArti, postLike, getLike, postMark, getMark } from "@/api/index";
+import { Arti_Like, Arti_Mark, User_Arti, Article } from "@/types/index";
+import {
+    getArti,
+    getUserArti,
+    postLike,
+    getLike,
+    postMark,
+    getMark,
+} from "@/api/index";
 import useStore from "@/store";
 const { useUser } = useStore();
 
@@ -83,7 +90,7 @@ const props = defineProps<PropsType>();
 
 const listData = ref<Article[]>([]);
 const showLists = computed(() => {
-    let arr = [];
+    let arr: Article[] = [];
     switch (props.from) {
         case "library":
             for (const item of listData.value) {
@@ -93,37 +100,50 @@ const showLists = computed(() => {
             }
             break;
         case "userPub":
+            if (userArti.value) {
+                arr = listData.value.filter(
+                    (item: Article) =>
+                        userArti.value?.articleIds.includes(item.id) &&
+                        item.status === props.status
+                );
+            }
             break;
         case "userLike":
+            if (userLike.value) {
+                arr = listData.value.filter(
+                    (item: Article) =>
+                        userLike.value?.articleIds.includes(item.id) &&
+                        item.status === props.status
+                );
+            }
             break;
         case "userMark":
+            if (userMark.value) {
+                arr = listData.value.filter(
+                    (item: Article) =>
+                        userMark.value?.articleIds.includes(item.id) &&
+                        item.status === props.status
+                );
+            }
             break;
         case "userBack":
+            if (userArti.value) {
+                arr = listData.value.filter(
+                    (item: Article) =>
+                        userArti.value?.articleIds.includes(item.id) &&
+                        item.status === props.status
+                );
+            }
             break;
         default:
             break;
     }
     return arr;
 });
-// const showLists = computed(() => {
-//     let arr = [];
-//     for (const item of listData.value) {
-//         if (item.status === props.status) {
-//             arr.push(item);
-//         }
-//     }
-//     return arr;
-// });
-const userLike = ref<Arti_Like>({
-    id: 0,
-    userId: useUser.id,
-    articleIds: [],
-});
-const userMark = ref<Arti_Mark>({
-    id: 0,
-    userId: useUser.id,
-    articleIds: [],
-});
+
+const userLike = ref<Arti_Like>();
+const userMark = ref<Arti_Mark>();
+const userArti = ref<User_Arti>();
 
 // 点赞文章
 const like = async (userId: number, articleId: number) => {
@@ -163,6 +183,7 @@ onMounted(async () => {
     const resultArti = (await getArti()).data;
     const resultLike = (await getLike(useUser.id)).data;
     const resultMark = (await getMark(useUser.id)).data;
+    const resultUserArti = (await getUserArti(useUser.id)).data;
 
     if (resultArti.code === 200) {
         listData.value = resultArti.data;
@@ -172,7 +193,10 @@ onMounted(async () => {
     }
     if (resultMark.code === 200) {
         userMark.value = resultMark.data;
-        console.log("resultMark", resultMark.data);
+    }
+    if (resultUserArti.code === 200) {
+        userArti.value = resultUserArti.data;
+        console.log("resultUserArti", userArti.value);
     }
 });
 </script>

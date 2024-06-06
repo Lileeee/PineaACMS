@@ -14,6 +14,7 @@ import {
     // Arti_Com,
     Arti_Like,
     Arti_Mark,
+    User_Arti,
 } from "@/types/index"; // 数据类型
 
 // 用户登录
@@ -189,21 +190,17 @@ const postLikeMock = mockjs.mock(
         if (article) {
             if (arti_like_one) {
                 // 如果有该用户点赞信息
-                console.log("Mock 有该用户点赞数据", arti_like_one);
                 let index = arti_like_one.articleIds.indexOf(data.articleId);
                 if (index !== -1) {
-                    console.log("有文章id");
                     arti_like_one.articleIds.splice(index, 1);
                     article.likes = article.likes === 0 ? 0 : article.likes - 1;
                 } else {
                     // 点赞文章列表没有该articleId
                     arti_like_one.articleIds.push(data.articleId);
                     article.likes++;
-                    console.log("没有id", arti_like_one, arti_likes);
                 }
             } else {
                 // 如果没有该用户点赞信息 增加
-                console.log("Mock 没有该用户点赞数据");
                 arti_likes.push({
                     id: arti_likes.length + 1,
                     userId: data.userId,
@@ -250,7 +247,6 @@ const getLikeMock = mockjs.mock("/mock/getLike", "get", (value: MockParams) => {
         }
     });
     if (arti_like_one) {
-        console.log("Mock 已有该用户点赞数据", arti_like_one);
         // 如果有数据
         return {
             code: 200,
@@ -259,7 +255,6 @@ const getLikeMock = mockjs.mock("/mock/getLike", "get", (value: MockParams) => {
         };
     } else {
         // 如果没数据，创建数据
-        console.log("Mock 没有该用户点赞数据");
         const new_arti_like_one = {
             id: arti_likes.length + 1,
             userId: data,
@@ -309,21 +304,17 @@ const postMarkMock = mockjs.mock(
         if (article) {
             if (arti_mark_one) {
                 // 如果有该用户收藏信息
-                console.log("Mock 有该用户收藏数据", arti_mark_one);
                 let index = arti_mark_one.articleIds.indexOf(data.articleId);
                 if (index !== -1) {
-                    console.log("有文章id");
                     arti_mark_one.articleIds.splice(index, 1);
                     article.marks = article.marks === 0 ? 0 : article.marks - 1;
                 } else {
                     // 点赞文章列表没有该articleId
                     arti_mark_one.articleIds.push(data.articleId);
                     article.marks++;
-                    console.log("没有id", arti_mark_one);
                 }
             } else {
                 // 如果没有该用户点赞信息 增加
-                console.log("Mock 没有该用户点赞数据");
                 arti_marks.push({
                     id: arti_marks.length + 1,
                     userId: data.userId,
@@ -359,6 +350,7 @@ const postMarkMock = mockjs.mock(
         };
     }
 );
+
 // 读取文章收藏表
 const getMarkMock = mockjs.mock("/mock/getMark", "get", (value: MockParams) => {
     let data = JSON.parse(value.body);
@@ -400,6 +392,31 @@ const getMarkMock = mockjs.mock("/mock/getMark", "get", (value: MockParams) => {
     }
 });
 
+// 读取用户文章表
+const getUserArtiMock = mockjs.mock(
+    "/mock/getUserArti",
+    "get",
+    (value: MockParams) => {
+        let data = JSON.parse(value.body);
+        const user_arti = user_artis.find((item: User_Arti) => {
+            if (item.authorId === data) {
+                return true;
+            }
+        });
+        if (user_arti) {
+            return {
+                code: 200,
+                msg: "get user arti info success",
+                data: user_arti,
+            };
+        } else {
+            return {
+                code: 404,
+                msg: "the user no arti",
+            };
+        }
+    }
+);
 export {
     postLoginMOCK,
     getUserInfoMock,
@@ -409,4 +426,5 @@ export {
     getLikeMock,
     postMarkMock,
     getMarkMock,
+    getUserArtiMock,
 };
