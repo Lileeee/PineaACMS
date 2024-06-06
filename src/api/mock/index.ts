@@ -4,7 +4,7 @@ import users from "@/api/mock/modules/users.json";
 import articles from "@/api/mock/modules/articles.json";
 import user_artis from "@/api/mock/modules/user_arti.json";
 import arti_likes from "@/api/mock/modules/arti_like.json";
-// import arti_marks from "@/api/mock/modules/arti_mark.json";
+import arti_marks from "@/api/mock/modules/arti_mark.json";
 // import arti_coms from "@/api/mock/modules/arti_com.json";
 
 import {
@@ -13,7 +13,7 @@ import {
     Article,
     // Arti_Com,
     Arti_Like,
-    // Arti_Mark,
+    Arti_Mark,
 } from "@/types/index"; // 数据类型
 
 // 用户登录
@@ -127,7 +127,7 @@ const postArtiMock = mockjs.mock(
             articles.push(article);
             // 文章表
             fs.writeFile(
-                "src/api/mock/modules/articles.json",
+                "E:\\testCE\\PineaACMS\\src\\api\\mock\\modules\\articles.json",
                 JSON.stringify(articles),
                 (err: any) => {
                     if (err) {
@@ -137,7 +137,7 @@ const postArtiMock = mockjs.mock(
             );
             // 用户文章表
             fs.writeFile(
-                "src/api/mock/modules/user_arti.json",
+                "E:\\testCE\\PineaACMS\\src\\api\\mock\\modules\\user_arti.json",
                 JSON.stringify(user_artis),
                 (err: any) => {
                     if (err) {
@@ -189,17 +189,21 @@ const postLikeMock = mockjs.mock(
         if (article) {
             if (arti_like_one) {
                 // 如果有该用户点赞信息
+                console.log("Mock 有该用户点赞数据", arti_like_one);
                 let index = arti_like_one.articleIds.indexOf(data.articleId);
                 if (index !== -1) {
+                    console.log("有文章id");
                     arti_like_one.articleIds.splice(index, 1);
                     article.likes = article.likes === 0 ? 0 : article.likes - 1;
                 } else {
                     // 点赞文章列表没有该articleId
                     arti_like_one.articleIds.push(data.articleId);
                     article.likes++;
+                    console.log("没有id", arti_like_one, arti_likes);
                 }
             } else {
                 // 如果没有该用户点赞信息 增加
+                console.log("Mock 没有该用户点赞数据");
                 arti_likes.push({
                     id: arti_likes.length + 1,
                     userId: data.userId,
@@ -210,7 +214,7 @@ const postLikeMock = mockjs.mock(
         }
 
         fs.writeFile(
-            "src/api/mock/modules/arti_like.json",
+            "E:\\testCE\\PineaACMS\\src\\api\\mock\\modules\\arti_like.json",
             JSON.stringify(arti_likes),
             (err: any) => {
                 if (err) {
@@ -219,7 +223,7 @@ const postLikeMock = mockjs.mock(
             }
         );
         fs.writeFile(
-            "src/api/mock/modules/articles.json",
+            "E:\\testCE\\PineaACMS\\src\\api\\mock\\modules\\articles.json",
             JSON.stringify(articles),
             (err: any) => {
                 if (err) {
@@ -246,6 +250,7 @@ const getLikeMock = mockjs.mock("/mock/getLike", "get", (value: MockParams) => {
         }
     });
     if (arti_like_one) {
+        console.log("Mock 已有该用户点赞数据", arti_like_one);
         // 如果有数据
         return {
             code: 200,
@@ -254,6 +259,7 @@ const getLikeMock = mockjs.mock("/mock/getLike", "get", (value: MockParams) => {
         };
     } else {
         // 如果没数据，创建数据
+        console.log("Mock 没有该用户点赞数据");
         const new_arti_like_one = {
             id: arti_likes.length + 1,
             userId: data,
@@ -261,7 +267,7 @@ const getLikeMock = mockjs.mock("/mock/getLike", "get", (value: MockParams) => {
         };
         arti_likes.push(new_arti_like_one);
         fs.writeFile(
-            "src/api/mock/modules/arti_like.json",
+            "E:\\testCE\\PineaACMS\\src\\api\\mock\\modules\\arti_like.json",
             JSON.stringify(arti_likes),
             (err: any) => {
                 if (err) {
@@ -277,6 +283,123 @@ const getLikeMock = mockjs.mock("/mock/getLike", "get", (value: MockParams) => {
     }
 });
 
+// 收藏文章
+// 逻辑：查找用户收藏表数据，根据用户是否收藏，更改两表收藏量+1/-1
+const postMarkMock = mockjs.mock(
+    "/mock/postMark",
+    "post",
+    (value: MockParams) => {
+        let data: { userId: number; articleId: number } = JSON.parse(
+            value.body
+        );
+
+        // 返回用户收藏表对应行数据
+        const arti_mark_one = arti_marks.find((item: Arti_Mark) => {
+            if (item.userId === data.userId) {
+                return true;
+            }
+        });
+        // 返回被点赞文章数据
+        const article = articles.find((item: Article) => {
+            if (item.id === data.articleId) {
+                return true;
+            }
+        });
+
+        if (article) {
+            if (arti_mark_one) {
+                // 如果有该用户收藏信息
+                console.log("Mock 有该用户收藏数据", arti_mark_one);
+                let index = arti_mark_one.articleIds.indexOf(data.articleId);
+                if (index !== -1) {
+                    console.log("有文章id");
+                    arti_mark_one.articleIds.splice(index, 1);
+                    article.marks = article.marks === 0 ? 0 : article.marks - 1;
+                } else {
+                    // 点赞文章列表没有该articleId
+                    arti_mark_one.articleIds.push(data.articleId);
+                    article.marks++;
+                    console.log("没有id", arti_mark_one);
+                }
+            } else {
+                // 如果没有该用户点赞信息 增加
+                console.log("Mock 没有该用户点赞数据");
+                arti_marks.push({
+                    id: arti_marks.length + 1,
+                    userId: data.userId,
+                    articleIds: [data.articleId],
+                });
+                article.marks++;
+            }
+        }
+
+        fs.writeFile(
+            "E:\\testCE\\PineaACMS\\src\\api\\mock\\modules\\arti_mark.json",
+            JSON.stringify(arti_marks),
+            (err: any) => {
+                if (err) {
+                    throw err;
+                }
+            }
+        );
+        fs.writeFile(
+            "E:\\testCE\\PineaACMS\\src\\api\\mock\\modules\\articles.json",
+            JSON.stringify(articles),
+            (err: any) => {
+                if (err) {
+                    throw err;
+                }
+            }
+        );
+
+        return {
+            code: 200,
+            msg: "mark success",
+            data: arti_mark_one,
+        };
+    }
+);
+// 读取文章收藏表
+const getMarkMock = mockjs.mock("/mock/getMark", "get", (value: MockParams) => {
+    let data = JSON.parse(value.body);
+    // 寻找该用户点赞文章列表
+    const arti_mark_one = arti_marks.find((item: Arti_Mark) => {
+        if (item.userId === data) {
+            return true;
+        }
+    });
+    if (arti_mark_one) {
+        // 如果有数据
+        return {
+            code: 200,
+            msg: "get all marksinfo success",
+            data: arti_mark_one,
+        };
+    } else {
+        // 如果没数据，创建数据
+        const new_arti_mark_one = {
+            id: arti_marks.length + 1,
+            userId: data,
+            articleIds: [],
+        };
+        arti_marks.push(new_arti_mark_one);
+        fs.writeFile(
+            "E:\\testCE\\PineaACMS\\src\\api\\mock\\modules\\arti_mark.json",
+            JSON.stringify(arti_marks),
+            (err: any) => {
+                if (err) {
+                    throw err;
+                }
+            }
+        );
+        return {
+            code: 200,
+            msg: "get all likesinfo success",
+            data: new_arti_mark_one,
+        };
+    }
+});
+
 export {
     postLoginMOCK,
     getUserInfoMock,
@@ -284,4 +407,6 @@ export {
     getArtiMock,
     postLikeMock,
     getLikeMock,
+    postMarkMock,
+    getMarkMock,
 };

@@ -53,5 +53,30 @@ const getLike = (value: number) => {
     });
 };
 
+// 收藏文章
+const postMark = (value: { userId: number; articleId: number }) => {
+    return axios("/mock/postMark", {
+        method: "post",
+        data: value,
+    });
+};
+
+// 读取文章收藏表
+const getMark = (value: number) => {
+    return axios("/mock/getMark", {
+        method: "GET",
+        data: value,
+    });
+};
+
 // 对外暴露接口
-export { postLogin, getUserInfo, postArti, getArti, postLike, getLike };
+export {
+    postLogin,
+    getUserInfo,
+    postArti,
+    getArti,
+    postLike,
+    getLike,
+    postMark,
+    getMark,
+};
