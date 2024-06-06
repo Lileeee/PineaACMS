@@ -1,5 +1,9 @@
 <template>
-    <div id="back-articles">back articles</div>
+    <div id="back-articles">
+        <ListMine :status="2" from="userBack"></ListMine>
+    </div>
 </template>
 
-<script setup></script>
+<script setup>
+import ListMine from "@/components/ReUse/ListMine.vue";
+</script>
