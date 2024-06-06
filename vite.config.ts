@@ -13,7 +13,7 @@ export default defineConfig({
     },
     server: {
         watch: {
-            // ignored: [path.resolve(__dirname, "./src/api/mock/modules/*")], // vite热更新忽视文件
+            ignored: [path.resolve(__dirname, "./src/api/mock/modules/*")], // vite热更新忽视文件
         },
     },
 });
