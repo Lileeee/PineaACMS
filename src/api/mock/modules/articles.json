@@ -9,8 +9,8 @@
         "hot": false,
         "visible": true,
         "comments": 1,
-        "likes": 5,
-        "marks": 1
+        "likes": 3,
+        "marks": 3
     },
     {
         "id": 2,
@@ -22,8 +22,8 @@
         "hot": false,
         "visible": true,
         "comments": 0,
-        "likes": 5,
-        "marks": 0
+        "likes": 3,
+        "marks": 3
     },
     {
         "id": 3,
@@ -48,7 +48,7 @@
         "hot": false,
         "visible": true,
         "comments": 0,
-        "likes": 5,
+        "likes": 0,
         "marks": 0
     },
     {
@@ -61,7 +61,7 @@
         "hot": false,
         "visible": true,
         "comments": 0,
-        "likes": 2,
+        "likes": 0,
         "marks": 0
     },
     {
@@ -74,7 +74,7 @@
         "hot": false,
         "visible": true,
         "comments": 0,
-        "likes": 2,
+        "likes": 0,
         "marks": 0
     },
     {
