@@ -419,7 +419,7 @@ const getUserArtiMock = mockjs.mock(
 );
 
 // 设置文章状态
-const postArtiStatus = mockjs.mock(
+const postArtiStatusMock = mockjs.mock(
     "/mock/postArtiStatus",
     "post",
     (value: MockParams) => {
@@ -446,6 +446,15 @@ const postArtiStatus = mockjs.mock(
     }
 );
 
+// 读取全部用户
+const getAllUserMock = mockjs.mock("/mock/getAllUser", "get", () => {
+    return {
+        code: 200,
+        msg: "get all user success",
+        data: users,
+    };
+});
+
 export {
     postLoginMOCK,
     getUserInfoMock,
@@ -456,5 +465,6 @@ export {
     postMarkMock,
     getMarkMock,
     getUserArtiMock,
-    postArtiStatus,
+    postArtiStatusMock,
+    getAllUserMock,
 };

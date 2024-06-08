@@ -85,6 +85,13 @@ const postArtiStatus = (value: { id: number; status: number }) => {
     });
 };
 
+// 读取全部用户
+const getAllUser = () => {
+    return axios("/mock/getAllUser", {
+        method: "GET",
+    });
+};
+
 // 对外暴露接口
 export {
     postLogin,
@@ -97,4 +104,5 @@ export {
     getMark,
     getUserArti,
     postArtiStatus,
+    getAllUser,
 };

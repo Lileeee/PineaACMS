@@ -58,7 +58,7 @@
 import { computed, onMounted, ref } from "vue";
 import { Select, SelectOption, SelectOptGroup, Table } from "ant-design-vue";
 import { getArti, postArtiStatus } from "@/api";
-import { Article, arti_ant_table } from "@/types";
+import { Article, Arti_ant_table } from "@/types";
 
 const selectKey = ref("all");
 const handleChange = (value: string) => {
@@ -89,7 +89,7 @@ const columns = [
 ];
 const articleList = ref<Article[]>();
 const articleHandle = computed(() => {
-    let arr: arti_ant_table[] = [];
+    let arr: Arti_ant_table[] = [];
     if (articleList.value) {
         articleList.value.forEach((item: Article) => {
             let arrItem: {

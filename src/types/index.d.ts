@@ -13,10 +13,17 @@ export interface MockResult {
 }
 
 // antdvue table 数据类型
-export interface arti_ant_table {
+export interface Arti_ant_table {
     key: number;
     title: string;
     authorid: number;
+    tags: string[];
+}
+
+export interface User_ant_table {
+    key: number;
+    username: string;
+    password: string;
     tags: string[];
 }
 
