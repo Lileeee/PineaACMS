@@ -1,5 +1,5 @@
 import axios from "axios";
-import { User } from "@/types/index"; // 数据类型
+import { FormStateName, FormStatePass, User } from "@/types/index"; // 数据类型
 
 // 用户登录
 const postLogin = (value: User) => {
@@ -92,6 +92,22 @@ const getAllUser = () => {
     });
 };
 
+// 修改用户名
+const postUserName = (value: { formdata: FormStateName; userId: number }) => {
+    return axios("/mock/postUserName", {
+        method: "POST",
+        data: value,
+    });
+};
+
+// 修改用户密码
+const postPassword = (value: { formdata: FormStatePass; userId: number }) => {
+    return axios("/mock/postPassword", {
+        method: "POST",
+        data: value,
+    });
+};
+
 // 对外暴露接口
 export {
     postLogin,
@@ -105,4 +121,6 @@ export {
     getUserArti,
     postArtiStatus,
     getAllUser,
+    postUserName,
+    postPassword,
 };

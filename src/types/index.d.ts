@@ -20,6 +20,18 @@ export interface Arti_ant_table {
     tags: string[];
 }
 
+// 表单 1
+export interface FormStateName {
+    username: string;
+    password: string;
+}
+
+// 表单 2
+export interface FormStatePass {
+    password: string;
+    checkPass: string;
+}
+
 export interface User_ant_table {
     key: number;
     username: string;

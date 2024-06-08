@@ -455,6 +455,86 @@ const getAllUserMock = mockjs.mock("/mock/getAllUser", "get", () => {
     };
 });
 
+// 修改用户名
+const postUserNameMock = mockjs.mock(
+    "/mock/postUserName",
+    "post",
+    (value: MockParams) => {
+        let data = JSON.parse(value.body);
+        const user = users.find((item: User) => {
+            if (item.id === data.userId) {
+                return true;
+            }
+        });
+        if (data.formdata.password && data.formdata.username && user) {
+            if (user.password === data.formdata.password) {
+                user.username = data.formdata.username;
+                fs.writeFile(
+                    "E:\\testCE\\PineaACMS\\src\\api\\mock\\modules\\users.json",
+                    JSON.stringify(users),
+                    (err: any) => {
+                        if (err) {
+                            throw err;
+                        }
+                    }
+                );
+                return {
+                    code: 200,
+                    msg: "set success",
+                };
+            } else
+                return {
+                    code: 404,
+                    msg: "password is wrong",
+                };
+        } else
+            return {
+                code: 404,
+                msg: "username or password is empty",
+            };
+    }
+);
+
+// 修改密码
+const postPasswordMock = mockjs.mock(
+    "/mock/postPassword",
+    "post",
+    (value: MockParams) => {
+        let data = JSON.parse(value.body);
+        const user = users.find((item: User) => {
+            if (item.id === data.userId) {
+                return true;
+            }
+        });
+        if (data.formdata.password && data.formdata.checkPass && user) {
+            if (user.password === data.formdata.password) {
+                user.password = data.formdata.checkPass;
+                fs.writeFile(
+                    "E:\\testCE\\PineaACMS\\src\\api\\mock\\modules\\users.json",
+                    JSON.stringify(users),
+                    (err: any) => {
+                        if (err) {
+                            throw err;
+                        }
+                    }
+                );
+                return {
+                    code: 200,
+                    msg: "set success",
+                };
+            } else
+                return {
+                    code: 404,
+                    msg: "password is wrong",
+                };
+        } else
+            return {
+                code: 404,
+                msg: "input is empty",
+            };
+    }
+);
+
 export {
     postLoginMOCK,
     getUserInfoMock,
@@ -467,4 +547,6 @@ export {
     getUserArtiMock,
     postArtiStatusMock,
     getAllUserMock,
+    postUserNameMock,
+    postPasswordMock,
 };
