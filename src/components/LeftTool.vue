@@ -17,7 +17,7 @@
         <SubMenu key="sub0">
             <template #title>
                 <span>
-                    <team-outlined />
+                    <appstore-outlined />
                     <span>My Article</span>
                 </span>
             </template>
@@ -38,7 +38,7 @@
         <SubMenu key="sub2" v-if="useUser.sudo">
             <template #title>
                 <span>
-                    <team-outlined />
+                    <branches-outlined />
                     <span>System Control</span>
                 </span>
             </template>
@@ -54,6 +54,8 @@ import {
     PieChartOutlined,
     DesktopOutlined,
     TeamOutlined,
+    AppstoreOutlined,
+    BranchesOutlined,
 } from "@ant-design/icons-vue";
 import { Menu, MenuItem, SubMenu } from "ant-design-vue";
 import { ref } from "vue";
