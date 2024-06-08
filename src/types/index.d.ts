@@ -12,6 +12,14 @@ export interface MockResult {
     data: any;
 }
 
+// antdvue table 数据类型
+export interface arti_ant_table {
+    key: number;
+    title: string;
+    authorid: number;
+    tags: string[];
+}
+
 // user类型
 export interface User {
     sudo?: string; // 管理员标识

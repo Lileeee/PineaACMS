@@ -1,29 +1,142 @@
 <template>
     <div id="article-management">
-        <Menu
-            v-model:selectedKeys="selectedKeys"
-            :select="change(selectedKeys[0])"
+        <Select
+            v-model:value="selectKey"
+            style="width: 200px; margin-bottom: 10px"
+            @change="handleChange(selectKey)"
         >
-            <MenuItem key="unchecked">
-                <a-icon type="info-circle" />
-                <info-circle-outlined />
-                <span>unchecked</span>
-            </MenuItem>
-            <MenuItem key="checked">
-                <check-circle-outlined />
-                <span>checked</span>
-            </MenuItem>
-        </Menu>
+            <SelectOption value="all">all articles</SelectOption>
+            <SelectOptGroup label="Checked">
+                <SelectOption value="checkedAll">all checked</SelectOption>
+                <SelectOption value="published">published</SelectOption>
+                <SelectOption value="backed">backed</SelectOption>
+            </SelectOptGroup>
+            <SelectOptGroup label="Unchecked">
+                <SelectOption value="unchecked">all unchecked</SelectOption>
+            </SelectOptGroup>
+        </Select>
+        <Table :columns="columns" :data-source="articleShow">
+            <template #bodyCell="{ column, record }">
+                <template v-if="column.key === 'title'">
+                    <a>
+                        {{ record.title }}
+                    </a>
+                </template>
+                <template v-else-if="column.key === 'tags'">
+                    <span>
+                        <a-tag
+                            v-for="tag in record.tags"
+                            :key="tag"
+                            :color="
+                                tag === 'unchecked'
+                                    ? 'volcano'
+                                    : tag.length > 6
+                                    ? 'green'
+                                    : 'geekblue'
+                            "
+                        >
+                            {{ tag.toUpperCase() }}
+                        </a-tag>
+                    </span>
+                </template>
+                <template v-else-if="column.key === 'actions'">
+                    <span v-if="record.tags.includes('unchecked')">
+                        <a>publish </a>
+                        <a-divider type="vertical" />
+                        <a>back</a>
+                    </span>
+                    <span v-else>
+                        <a disabled>no actions</a>
+                    </span>
+                </template>
+            </template>
+        </Table>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import { Menu, MenuItem } from "ant-design-vue";
-import { InfoCircleOutlined, CheckCircleOutlined } from "@ant-design/icons-vue";
+import { computed, onMounted, ref } from "vue";
+import { Select, SelectOption, SelectOptGroup, Table } from "ant-design-vue";
+import { getArti } from "@/api";
+import { Article, arti_ant_table } from "@/types";
 
-const selectedKeys = ref<string[]>([""]);
-const change = (key: string) => {
-    console.log(key);
+const selectKey = ref("all");
+const handleChange = (value: string) => {
+    console.log(value);
 };
+
+const columns = [
+    {
+        title: "Title",
+        dataIndex: "title",
+        key: "title",
+    },
+    {
+        title: "Author ID",
+        dataIndex: "authorid",
+        key: "authorid",
+    },
+    {
+        title: "Tags",
+        dataIndex: "tags",
+        key: "tags",
+    },
+    {
+        title: "Actions",
+        dataIndex: "actions",
+        key: "actions",
+    },
+];
+const articleList = ref<Article[]>();
+const articleHandle = computed(() => {
+    let arr: arti_ant_table[] = [];
+    if (articleList.value) {
+        articleList.value.forEach((item: Article) => {
+            let arrItem: {
+                key: number;
+                title: string;
+                authorid: number;
+                tags: string[];
+            } = {
+                key: 0,
+                title: "",
+                authorid: 0,
+                tags: [""],
+            };
+            arrItem.key = item.id;
+            arrItem.title = item.title;
+            arrItem.authorid = item.authorId;
+            if (item.status === 0) {
+                arrItem.tags = ["unchecked"];
+            } else if (item.status === 1) {
+                arrItem.tags = ["published"];
+            } else {
+                arrItem.tags = ["backed"];
+            }
+            arr.push(arrItem);
+        });
+    }
+    return arr;
+});
+const articleShow = computed(() => {
+    return articleHandle.value.filter((item) => {
+        if (selectKey.value === "all") {
+            return articleHandle.value;
+        } else if (selectKey.value === "checkedAll") {
+            return (
+                item.tags.includes("published") || item.tags.includes("backed")
+            );
+        } else {
+            return item.tags.includes(selectKey.value);
+        }
+    });
+});
+
+onMounted(async () => {
+    const resultArti = (await getArti()).data;
+    if (resultArti.code === 200) {
+        articleList.value = resultArti.data;
+    }
+    console.log("AM", articleList.value, articleHandle.value);
+});
 </script>
