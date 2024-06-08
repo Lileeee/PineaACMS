@@ -77,6 +77,14 @@ const getUserArti = (value: number) => {
     });
 };
 
+// 设置文章状态
+const postArtiStatus = (value: { id: number; status: number }) => {
+    return axios("/mock/postArtiStatus", {
+        method: "POST",
+        data: value,
+    });
+};
+
 // 对外暴露接口
 export {
     postLogin,
@@ -88,4 +96,5 @@ export {
     postMark,
     getMark,
     getUserArti,
+    postArtiStatus,
 };

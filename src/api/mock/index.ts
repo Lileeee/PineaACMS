@@ -417,6 +417,35 @@ const getUserArtiMock = mockjs.mock(
         }
     }
 );
+
+// 设置文章状态
+const postArtiStatus = mockjs.mock(
+    "/mock/postArtiStatus",
+    "post",
+    (value: MockParams) => {
+        let data = JSON.parse(value.body);
+        articles.forEach((item: Article) => {
+            if (item.id === data.id) {
+                item.status = data.status;
+            }
+        });
+        fs.writeFile(
+            "E:\\testCE\\PineaACMS\\src\\api\\mock\\modules\\articles.json",
+            JSON.stringify(articles),
+            (err: any) => {
+                if (err) {
+                    throw err;
+                }
+            }
+        );
+        return {
+            code: 200,
+            msg: "set success",
+            data: data,
+        };
+    }
+);
+
 export {
     postLoginMOCK,
     getUserInfoMock,
@@ -427,4 +456,5 @@ export {
     postMarkMock,
     getMarkMock,
     getUserArtiMock,
+    postArtiStatus,
 };

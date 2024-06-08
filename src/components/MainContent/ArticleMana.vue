@@ -41,9 +41,9 @@
                 </template>
                 <template v-else-if="column.key === 'actions'">
                     <span v-if="record.tags.includes('unchecked')">
-                        <a>publish </a>
+                        <a @click="publish(record.key, 1)">publish</a>
                         <a-divider type="vertical" />
-                        <a>back</a>
+                        <a @click="back(record.key, 2)">back</a>
                     </span>
                     <span v-else>
                         <a disabled>no actions</a>
@@ -57,7 +57,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "vue";
 import { Select, SelectOption, SelectOptGroup, Table } from "ant-design-vue";
-import { getArti } from "@/api";
+import { getArti, postArtiStatus } from "@/api";
 import { Article, arti_ant_table } from "@/types";
 
 const selectKey = ref("all");
@@ -132,11 +132,19 @@ const articleShow = computed(() => {
     });
 });
 
+const publish = async (value: number, status: number) => {
+    const result = (await postArtiStatus({ id: value, status })).data;
+    console.log(result.data);
+};
+const back = async (value: number, status: number) => {
+    const result = (await postArtiStatus({ id: value, status })).data;
+    console.log(result.data);
+};
+
 onMounted(async () => {
     const resultArti = (await getArti()).data;
     if (resultArti.code === 200) {
         articleList.value = resultArti.data;
     }
-    console.log("AM", articleList.value, articleHandle.value);
 });
 </script>
