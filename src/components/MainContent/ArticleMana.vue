@@ -35,7 +35,7 @@
                                     : 'geekblue'
                             "
                         >
-                            {{ tag.toUpperCase() }}
+                            {{ tag }}
                         </a-tag>
                     </span>
                 </template>
