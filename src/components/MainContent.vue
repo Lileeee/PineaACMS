@@ -17,6 +17,7 @@ import MarkArticles from "@/components/MainContent/MarkArticles.vue";
 import BackArticles from "@/components/MainContent/BackArticles.vue";
 import MyInfomation from "@/components/MainContent/MyInfomation.vue";
 import ArticleMana from "@/components/MainContent/ArticleMana.vue";
+import ArticleContent from "@/components/MainContent/ArticleContent.vue";
 import UserMana from "@/components/MainContent/UserMana.vue";
 import SysNotifi from "@/components/MainContent/SysNotifi.vue";
 
@@ -62,6 +63,10 @@ const mainlist = [
     {
         id: "10",
         component: SysNotifi,
+    },
+    {
+        id: "11",
+        component: ArticleContent,
     },
 ];
 </script>

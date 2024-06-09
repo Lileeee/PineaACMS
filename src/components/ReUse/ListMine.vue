@@ -56,7 +56,9 @@
                 </template>
                 <ListItemMeta :description="item.description">
                     <template #title>
-                        <a href="#">{{ item.title }}</a>
+                        <a href="#" @click="toArticle(item)">{{
+                            item.title
+                        }}</a>
                     </template>
                     <template #avatar
                         ><a-avatar src="https://joeschmoe.io/api/v1/random"
@@ -80,7 +82,7 @@ import {
     getMark,
 } from "@/api/index";
 import useStore from "@/store";
-const { useUser } = useStore();
+const { useUser, useActive } = useStore();
 
 interface PropsType {
     from: string;
@@ -147,39 +149,36 @@ const userArti = ref<User_Arti>();
 
 // 点赞文章
 const like = async (userId: number, articleId: number) => {
-    console.log("like", userId, articleId);
-
     // 点赞
     const result = (await postLike({ userId, articleId })).data;
     // 点赞成功则重新获取数据
     if (result.code === 200) {
         listData.value = (await getArti()).data.data; // 新列表数据 -> 显示文章点赞量
         userLike.value = result.data; // 用户点赞列表数据 -> 显示该文章是否被该用户点赞
-        console.log("点赞成功", result.data);
     }
 };
 // 收藏文章
 const mark = async (userId: number, articleId: number) => {
-    console.log("mark", userId, articleId, userMark);
-
     // 收藏
     const result = (await postMark({ userId, articleId })).data;
-    console.log(result);
     // 收藏成功则重新获取数据
     if (result.code === 200) {
         listData.value = (await getArti()).data.data; // 新列表数据 -> 显示文章点赞量
         userMark.value = result.data; // 用户点赞列表数据 -> 显示该文章是否被该用户点赞
-        console.log("收藏成功", result.data);
     }
 };
-
+// 评论文章
 const comment = () => {
     console.log("comment");
 };
 
-onMounted(async () => {
-    console.log("ListMine", useUser.user, useUser.id);
+// 跳转详情
+const toArticle = (item: Article) => {
+    useActive.setActiveLeft("11");
+    console.log(item);
+};
 
+onMounted(async () => {
     const resultArti = (await getArti()).data;
     const resultLike = (await getLike(useUser.id)).data;
     const resultMark = (await getMark(useUser.id)).data;
@@ -196,7 +195,6 @@ onMounted(async () => {
     }
     if (resultUserArti.code === 200) {
         userArti.value = resultUserArti.data;
-        console.log("resultUserArti", userArti.value);
     }
 });
 </script>
