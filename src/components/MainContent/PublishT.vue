@@ -25,7 +25,7 @@
                 @onCreated="handleCreated"
             />
         </div>
-        <Button class="publish" @click="publish">publish</Button>
+        <Button class="publishT" @click="publish">publish</Button>
     </div>
 </template>
 
@@ -67,9 +67,9 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped lang="less">
-#publish {
+#publishT {
     height: 100%;
-    .publish {
+    .publishT {
         float: right;
         margin-top: 20px;
         margin-right: 40px;

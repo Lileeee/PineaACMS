@@ -174,7 +174,7 @@ const comment = () => {
 
 // 跳转详情
 const toArticle = (item: Article) => {
-    if (props.from === "userBack") {
+    if (props.from === "userBack" || props.from === "userPub") {
         useActive.setActiveLeft("12");
     } else {
         useActive.setActiveLeft("11");
