@@ -1,4 +1,5 @@
-const fs = window.require("fs");
+// const fs = window.require("fs");
+const fs = window.WindowAPI.fs;
 import mockjs from "mockjs";
 import users from "@/api/mock/modules/users.json";
 import articles from "@/api/mock/modules/articles.json";
@@ -535,6 +536,43 @@ const postPasswordMock = mockjs.mock(
     }
 );
 
+// 更改文章数据
+const postArtiModifyMock = mockjs.mock(
+    "/mock/postArtiModify",
+    "post",
+    (value: MockParams) => {
+        let data = JSON.parse(value.body);
+        const article = articles.find((item: Article) => {
+            if (item.id === data.id) {
+                return true;
+            }
+        });
+        if (article) {
+            article.content = data.content;
+            article.title = data.title;
+            article.description = data.description;
+            article.status = data.status;
+            fs.writeFile(
+                "E:\\testCE\\PineaACMS\\src\\api\\mock\\modules\\articles.json",
+                JSON.stringify(articles),
+                (err: any) => {
+                    if (err) {
+                        throw err;
+                    }
+                }
+            );
+            return {
+                code: 200,
+                data: article,
+            };
+        } else
+            return {
+                code: 404,
+                data: null,
+            };
+    }
+);
+
 export {
     postLoginMOCK,
     getUserInfoMock,
@@ -549,4 +587,5 @@ export {
     getAllUserMock,
     postUserNameMock,
     postPasswordMock,
+    postArtiModifyMock,
 };
