@@ -134,11 +134,9 @@ const articleShow = computed(() => {
 
 const publish = async (value: number, status: number) => {
     const result = (await postArtiStatus({ id: value, status })).data;
-    console.log(result.data);
 };
 const back = async (value: number, status: number) => {
     const result = (await postArtiStatus({ id: value, status })).data;
-    console.log(result.data);
 };
 
 onMounted(async () => {

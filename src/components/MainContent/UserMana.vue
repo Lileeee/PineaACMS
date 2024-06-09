@@ -67,7 +67,6 @@ onMounted(async () => {
     const resultUser = (await getAllUser()).data;
     if (resultUser.code === 200) {
         allUser.value = resultUser.data;
-        console.log("111", allUser.value);
     }
 });
 </script>

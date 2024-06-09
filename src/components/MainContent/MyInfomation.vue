@@ -97,7 +97,6 @@ const nameState = reactive<FormStateName>({
     password: "",
 });
 const upName = async (values: FormStateName) => {
-    console.log(values, nameState);
     // 发请求 更改用户名
     const result = (
         await postUserName({ formdata: values, userId: useUser.id })
@@ -124,7 +123,6 @@ const passState = reactive<FormStatePass>({
     checkPass: "",
 });
 const upPass = async (values: FormStatePass) => {
-    console.log(values, passState);
     // 发请求 更改密码
     const result = (
         await postPassword({ formdata: values, userId: useUser.id })

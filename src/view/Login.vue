@@ -79,7 +79,6 @@ const login = async () => {
         if (resultGetUser.code === 200) {
             useUser.setUser(resultGetUser.data);
         }
-        console.log("存储用户", useUser.user, useUser.id);
     } else {
         notification["error"]({
             message: "error",
