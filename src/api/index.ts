@@ -108,6 +108,20 @@ const postPassword = (value: { formdata: FormStatePass; userId: number }) => {
     });
 };
 
+// 更改文章数据
+const postArtiModify = (value: {
+    id: number;
+    title: string;
+    description: string;
+    content: string;
+    status: number;
+}) => {
+    return axios("/mock/postArtiModify", {
+        method: "POST",
+        data: value,
+    });
+};
+
 // 对外暴露接口
 export {
     postLogin,
@@ -123,4 +137,5 @@ export {
     getAllUser,
     postUserName,
     postPassword,
+    postArtiModify,
 };

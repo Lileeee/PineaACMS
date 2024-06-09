@@ -9,6 +9,7 @@
 
 <script setup lang="ts">
 import Publish from "@/components/MainContent/Publish.vue";
+import PublishT from "@/components/MainContent/PublishT.vue";
 import Library from "@/components/MainContent/Library.vue";
 // import LibraryT from "@/components/MainContent/LibraryT.vue";
 import PubArticles from "@/components/MainContent/PubArticles.vue";
@@ -67,6 +68,10 @@ const mainlist = [
     {
         id: "11",
         component: ArticleContent,
+    },
+    {
+        id: "12",
+        component: PublishT,
     },
 ];
 </script>

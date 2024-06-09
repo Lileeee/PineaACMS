@@ -174,8 +174,13 @@ const comment = () => {
 
 // 跳转详情
 const toArticle = (item: Article) => {
-    useActive.setActiveLeft("11");
-    console.log(item);
+    if (props.from === "userBack") {
+        useActive.setActiveLeft("12");
+    } else {
+        useActive.setActiveLeft("11");
+    }
+    useActive.setActiveArti(item);
+    console.log("toArticle", useActive.activeArti, props.from);
 };
 
 onMounted(async () => {

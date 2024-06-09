@@ -133,10 +133,10 @@ const articleShow = computed(() => {
 });
 
 const publish = async (value: number, status: number) => {
-    const result = (await postArtiStatus({ id: value, status })).data;
+    await postArtiStatus({ id: value, status });
 };
 const back = async (value: number, status: number) => {
-    const result = (await postArtiStatus({ id: value, status })).data;
+    await postArtiStatus({ id: value, status });
 };
 
 onMounted(async () => {

@@ -1,25 +1,25 @@
 <template>
-    <div id="publish">
-        <div id="editor">
+    <div id="publishT">
+        <div id="editorT">
             <Toolbar
                 style="border-bottom: 1px solid #ccc"
-                :editor="editorRef"
+                :editor="editorRefT"
                 :defaultConfig="toolbarConfig"
                 :mode="mode"
             />
             <Input
-                v-model:value="title"
+                v-model:value="useActive.activeArti.title"
                 :bordered="false"
                 placeholder="title"
             />
             <Input
-                v-model:value="description"
+                v-model:value="useActive.activeArti.description"
                 :bordered="false"
                 placeholder="description"
             />
             <Editor
                 style="height: 480px; overflow-y: hidden"
-                v-model="valueHtml"
+                v-model="useActive.activeArti.content"
                 :defaultConfig="editorConfig"
                 :mode="mode"
                 @onCreated="handleCreated"
@@ -34,32 +34,33 @@ import "@wangeditor/editor/dist/css/style.css"; // 引入 css
 import { onBeforeUnmount, ref, shallowRef, onMounted } from "vue";
 import { Button, Input } from "ant-design-vue";
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
-import { postArti } from "@/api/index";
+import { postArtiModify } from "@/api/index";
 import useStore from "@/store";
-const { useUser } = useStore();
+const { useUser, useActive } = useStore();
 
 const mode = "default";
-const editorRef = shallowRef();
-const title = ref("");
-const description = ref("");
-const valueHtml = ref("");
+const editorRefT = shallowRef();
 const toolbarConfig = {};
 const editorConfig = { placeholder: "请输入内容..." };
 
 const handleCreated = (editor) => {
-    editorRef.value = editor;
+    editorRefT.value = editor;
 };
 const publish = async () => {
-    await postArti({
-        authorId: useUser.id,
-        title: title.value,
-        description: description.value,
-        content: valueHtml.value,
-    });
+    const result = (
+        await postArtiModify({
+            id: useActive.activeArti.id,
+            title: useActive.activeArti.title,
+            description: useActive.activeArti.description,
+            content: useActive.activeArti.content,
+            status: 0,
+        })
+    ).data;
+    console.log("publish", result);
 };
 
 onBeforeUnmount(() => {
-    const editor = editorRef.value;
+    const editor = editorRefT.value;
     if (editor == null) return;
     editor.destroy();
 });

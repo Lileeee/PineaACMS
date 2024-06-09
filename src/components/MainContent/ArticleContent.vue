@@ -21,7 +21,7 @@
     </div>
 </template>
 <script setup>
-import { ref, shallowRef } from "vue";
+import { ref, shallowRef, computed } from "vue";
 import { Button } from "ant-design-vue";
 import { LeftCircleTwoTone } from "@ant-design/icons-vue";
 import { Editor } from "@wangeditor/editor-for-vue";
@@ -30,8 +30,14 @@ const { useActive } = useStore();
 
 const mode = "default";
 const editorRef = shallowRef();
-const valueHtml = ref("<p>hello</p>");
-const editorConfig = { placeholder: "请输入内容...", readOnly: true };
+const valueHtml = computed(() => {
+    return useActive?.activeArti?.content;
+});
+const editorConfig = {
+    placeholder: "请输入内容...",
+    readOnly: true,
+};
+
 const handleCreated = (editor) => {
     editorRef.value = editor;
 };
